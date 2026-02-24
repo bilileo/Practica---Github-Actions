@@ -1,7 +1,7 @@
 class Calculadora: 
- 
     def add(self, a, b): 
-
         return a + b
 
- # Este es un comentario
+    # Nuevo método agregado
+    def restar(self, a, b):
+        return a - b
