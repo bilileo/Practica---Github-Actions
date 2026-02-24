@@ -28,26 +28,24 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        # Aquí es donde instalamos todo lo necesario para que los siguientes pasos funcionen
         pip install flake8 pytest pytest-cov pytest-html
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        # Buscamos el requirements.txt dentro de la subcarpeta
+        if [ -f "Practica - Github Actions/requirements.txt" ]; then pip install -r "Practica - Github Actions/requirements.txt"; fi
         
     - name: Lint with flake8
       run: |
-        # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
         
     - name: Test with pytest
       run: |
-        # Aquí es donde realmente corremos las pruebas y generamos los reportes
         python -m pytest -v --cov=. --cov-report=html --html=report.html
 
     - name: Build Clase 
       run: | 
         mkdir build 
-        cp calculadora.py build/ 
+        # Añadimos la ruta a la subcarpeta y la C mayúscula
+        cp "Practica - Github Actions/Calculadora.py" build/ 
         
     - name: Build Reporte COV 
       run: | 
@@ -55,7 +53,6 @@ jobs:
       
     - name: Build Reporte HTML 
       run: | 
-        # Añadí una pequeña validación por si la carpeta assets no se genera
         if [ -d "assets" ]; then cp -r assets build/; fi
         cp report.html build/ 
         
