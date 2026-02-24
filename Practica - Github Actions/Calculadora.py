@@ -4,4 +4,4 @@ class Calculadora:
 
     # Nuevo método agregado
     def restar(self, a, b):
-        return a - b
+        return a + b # Error intencional
